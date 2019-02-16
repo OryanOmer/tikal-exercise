@@ -1,0 +1,6 @@
+[jenkins]
+jenkins
+
+[all:vars]
+ansible_user="vagrant"
+ssh_username="vagrant"

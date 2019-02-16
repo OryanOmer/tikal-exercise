@@ -1,0 +1,46 @@
+---
+- name: Install apt tools
+  apt:
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg-agent', 'software-properties-common']
+    state: present
+  become: true
+
+- name: Add Jenkins apt key
+  apt_key:
+    url: "https://pkg.jenkins.io/debian/jenkins.io.key"
+    state: present
+  become: true
+
+- name: Add Jenkins apt repository
+  apt_repository:
+    repo: "deb http://pkg.jenkins.io/debian-stable binary/"
+    state: present
+  become: true
+
+- name: Add openjdk apt repository
+  apt_repository:
+    repo: ppa:openjdk-r/ppa
+    state: present
+  become: true
+  
+- name: Install openjdk-8
+  apt:
+    name: openjdk-8-jdk
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Install Jenkins
+  apt:
+    name: jenkins
+    state: present
+    update_cache: yes
+  become: true
+
+- name: start and enable Jenkins service
+  systemd:
+    name: jenkins
+    enabled: yes
+    state: started
+  become: true
+ 

@@ -1,0 +1,6 @@
+---
+- include_tasks: "{{ tasks }}"
+  with_items:
+  - prepare_jenkins_node.yml
+  loop_control:
+    loop_var: tasks

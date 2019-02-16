@@ -1,0 +1,44 @@
+---
+- name: Install apt tools
+  apt:
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg-agent', 'software-properties-common']
+    state: present
+  become: true
+
+- name: Add openjdk apt repository
+  apt_repository:
+    repo: ppa:openjdk-r/ppa
+    state: present
+  become: true
+  
+- name: Install openjdk-8
+  apt:
+    name: openjdk-8-jdk
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Create /var/jenkins directory
+  file:
+    path: /var/jenkins
+    state: directory
+    owner: vagrant
+  become: true
+
+- name: Open Docker TCP port
+  replace:    
+    path: /lib/systemd/system/docker.service
+    regexp: "ExecStart=/usr/bin/dockerd -H fd://"
+    replace: "ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock"
+  become: true
+
+- name: Reload daemon
+  systemd:
+    daemon_reload: yes
+  become: true
+
+- name: Restart docker service
+  systemd:
+    name: docker
+    state: restarted
+  become: true

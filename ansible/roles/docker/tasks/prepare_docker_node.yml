@@ -1,0 +1,51 @@
+---
+- name: Install apt tools
+  apt:
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg-agent', 'software-properties-common']
+    state: present
+  become: true
+
+- name: Add Docker apt key
+  apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+  become: true
+
+- name: Get Ubuntu distribution
+  shell: lsb_release -cs
+  register: ubuntu_dist
+
+- name: Add Docker apt repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ubuntu_dist.stdout}} stable"
+    state: present
+  become: true
+
+- name: Install docker-ce
+  apt:
+    name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+    state: present
+    update_cache: yes
+  become: true
+    
+- name: Add ssh user to docker group
+  user:
+    name: "{{ ssh_username }}"
+    append: true
+    state: present
+    groups: docker
+  become: true
+
+- name: Add jenkins user docker group
+  user:
+    name: "jenkins"
+    append: true
+    state: present
+    groups: docker
+  become: true
+
+- name: Restart Jenkins service
+  systemd:
+    name: jenkins
+    state: restarted
+  become: true
