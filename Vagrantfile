@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
         vb.memory = node[:mem]
         vb.cpus = node[:cpu]
       end
-      config.vm.network :public_network, ip: node[:ip], bridge: "eno1"
+      config.vm.network :public_network, ip: node[:ip]
       # Enable SSH password authentication on all nodes
       config.vm.provision "shell", inline: 'sudo sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config && sudo service sshd restart'
 	  # Generate SSH key and disable host key checking
