@@ -85,7 +85,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 <br/>- Stop and remove the container if test was successfull.
 <br/>- Tag the image as latest and push to DockerHub.
 
-## Running pyDash container
+## Run pyDash container
 1. After building the image and pushing to DockerHub, we can run the container from any Docker host by running:
 ```
 docker run -d --name pydash -p 8000:8000 roeizavida/pydash
