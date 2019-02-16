@@ -1,5 +1,5 @@
 # Tikal DevOps Exercise
-This GitHub repo contains simple CI flow of opensource project named pydash, a simple system monitoring dashboard written in Python and using Django as web framework.
+This GitHub repo contains simple CI flow of opensource project named pyDash, a simple system monitoring dashboard written in Python and using Django as web framework.
 <br/>This automation using Vagrant and VirtualBox as virtualization platform, Ansible as configuration management tool, Jenkins as CI/CD platform and Docker.
 
 ## Requirements
@@ -79,8 +79,18 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 2. Wait for the pipeline to finish building, it will do the following:
 <br/>- Pull the latest code from GitHub.
-<br/>- Build docker image from Dockerfile (Containerized version of pydash).
-<br/>- Run container from the pydash image.
+<br/>- Build docker image from Dockerfile (Containerized version of pyDash).
+<br/>- Run container from the pyDash image.
 <br/>- Run HTTP healthcheck to verify that the app is running.
 <br/>- Stop and remove the container if test was successfull.
 <br/>- Tag the image as latest and push to DockerHub.
+
+## Running pyDash container
+1. After building the image and pushing to DockerHub, we can run the container from any Docker host by running:
+```
+docker run -d --name pydash -p 8000:8000 roeizavida/pydash
+```
+
+2. We can access the app by browsing to http://192.168.1.21:8000 (username is 'admin' and password is 'password').
+
+3. pyDash will provide dashboard with information about system resources of the container itself.
