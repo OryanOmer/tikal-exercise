@@ -32,10 +32,10 @@ Vagrant.configure("2") do |config|
       config.vm.network :public_network, ip: node[:ip], bridge: "eno1"
       # Enable SSH password authentication on all nodes
       config.vm.provision "shell", inline: 'sudo sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config && sudo service sshd restart'
-	  # Generate SSH key and disable host key checking
+	    # Generate SSH key and disable host key checking
       config.vm.provision "shell", inline: $generate_ssh_key
-	  # Install Ansible
-	  config.vm.provision "shell", inline: 'sudo apt-get update -y && sudo apt-get install -y software-properties-common && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt-get update -y && sudo apt-get install -y ansible'
+	    # Install Ansible
+	    config.vm.provision "shell", inline: 'sudo apt-get update -y && sudo apt-get install -y software-properties-common && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt-get update -y && sudo apt-get install -y ansible'
     end
   end
 end
