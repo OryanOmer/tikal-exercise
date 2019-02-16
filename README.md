@@ -25,7 +25,7 @@ cd tikal-exercise/
 vagrant up
 ```
 
-4. After Vagrant done deploying, ssh to machine and copy the ansible directory to local filesystem:
+4. After Vagrant done deploying, ssh to machine and copy the ansible directory to local filesystem (ssh username and password is 'vagrant'):
 ```
 ssh vagrant@192.168.1.21
 cp -r /vagrant/ansible /tmp/
@@ -41,9 +41,8 @@ ansible-playbook -i inventory install.yml
    <br/> The url is http://192.168.1.21:8080.
 
 ## Jenkins initial setup
-1. You need the Jenkins initial password to login to the UI, you can find it on the master server (ssh username and password is 'vagrant'):
+1. You need the Jenkins initial password to login to the UI, you can find it on the master server:
 ```
-ssh vagrant@192.168.1.21
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
