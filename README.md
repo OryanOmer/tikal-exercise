@@ -12,6 +12,7 @@ This GitHub repo contains simple CI flow of opensource project named pydash, a s
 ## Installation Guide
 1. Clone or download this repo:
 ```
+git clone https://github.com/roeizavida/tikal-exercise.git
 ```
 
 2. cd to directory:
@@ -24,9 +25,20 @@ cd tikal-exercise/
 vagrant up
 ```
 
-4. After Vagrant done deploying, Verify that Jenkins is accessible from browser.
-   <br/> The url is http://192.168.1.21:8080.
+4. After Vagrant done deploying, ssh to machine and copy the ansible directory to local filesystem:
+```
+ssh vagrant@192.168.1.21
+cp -r /vagrant/ansible /tmp/
+```
 
+5. cd to ansible directory and run deployment playbook (installs Docker and Jenkins on host):
+```
+cd /tmp/ansible
+ansible-playbook -i inventory install.yml
+```
+
+6. After ansible playbook succeeded, Verify that Jenkins is accessible from browser.
+   <br/> The url is http://192.168.1.21:8080.
 
 ## Jenkins initial setup
 1. You need the Jenkins initial password to login to the UI, you can find it on the master server (ssh username and password is 'vagrant'):
@@ -48,7 +60,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 2. In 'Pipeline' tab change the 'Definition' to 'Pipeline script from SCM'.
 
-3. Change 'SCM' to 'Git' and enter 'Repository URL' ().
+3. Change 'SCM' to 'Git' and enter 'Repository URL' (https://github.com/roeizavida/tikal-exercise.git).
 
 4. In 'Script Path', verify that the value is 'Jenkinsfile'.
 
