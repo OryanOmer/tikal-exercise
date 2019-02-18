@@ -1,6 +1,4 @@
-[jenkins]
-jenkins
+localhost
 
 [all:vars]
-ansible_user="vagrant"
-ssh_username="vagrant"
+ansible_connection=local
