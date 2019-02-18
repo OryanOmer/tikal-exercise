@@ -30,7 +30,7 @@
     
 - name: Add ssh user to docker group
   user:
-    name: "{{ ssh_username }}"
+    name: "{{ ansible_user_id }}"
     append: true
     state: present
     groups: docker
