@@ -32,7 +32,7 @@
     groups: docker
   become: true
 
-- name: Add jenkins user docker group
+- name: Add jenkins user to docker group
   user:
     name: "jenkins"
     append: true
